@@ -28,6 +28,21 @@ const signInFormSchema = yup.object().shape({
   password_confirmation: yup.string().required('A confirmação da senha é obrigatória').oneOf([yup.ref('password')], 'As senhas devem corresponder!'),
 })
 
+const sectors = [
+  {
+    id: 1,
+    name: 'Financeiro'
+  },
+  {
+    id: 2,
+    name: 'Recursos Humanos'
+  },
+  {
+    id: 3,
+    name: 'DEV'
+  }
+]
+
 function SignUp() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema)
@@ -88,6 +103,7 @@ function SignUp() {
             name="sector"
             label="Setor"
             error={errors.sector}
+            options={sectors}
             ref={register("sector")}
             {...register("sector")}
           />

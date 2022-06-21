@@ -5,74 +5,102 @@ import {
   Flex,
   Heading,
   HStack,
-  Select,
   SimpleGrid,
   useColorModeValue,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useMutation } from 'react-query';
 import { Input } from "../../components/Form/Input";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
-import { queryClient } from "../../services/queryClient";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import Card from "../../components/Card";
+import { Select } from "../../components/Form/Select";
+import { TextArea } from "../../components/Form/TextArea";
 
 type CreateCallFormData = {
   title: string;
   priority_level: string;
   anydesk_number: string;
   description: string;
-  image_url: string;
-  call_status: boolean;
+  // image_url: string;
+  // call_status: boolean;
 };
 
-const createUserFormSchema = yup.object().shape({
-  name: yup.string().required("Nome obrigatório"),
-  email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
-  password: yup.string()
-    .required("Senha obrigatória")
-    .min(8, "No mínimo 8 caracteres"),
-  password_confirmation: yup.string()
-    .oneOf([null, yup.ref("password")], "As senhas precisam ser iguais"),
+const createCallFormSchema = yup.object().shape({
+  title: yup.string().required("Título obrigatório"),
+  priority_level: yup.string().required('Selecione uma opção'),
+  anydesk_number: yup.string().required("Código obrigatório").max(9, "O código precisa ter 9 caracteres"),
+  description: yup.string().required()
 });
 
+const levels = [
+  {
+    id: 1,
+    name: "Baixa"
+  },
+  {
+    id: 2,
+    name: "Média"
+  },
+  {
+    id: 3,
+    name: "Alta"
+  }
+]
+
 export default function CreateCall() {
-  const router = useRouter();
-
+  const Router = useRouter();
+  const toast = useToast();
+  
   const bg = useColorModeValue('gray.50', 'gray.800');
-
-  const createCall = useMutation(async (call: CreateCallFormData) => {
-    const response = await api.post('calls', {
-      call: {
-        ...call,
-      }
-    })
-
-    return response.data.call;
-  }, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('calls')
-    }
-  });
-
+  
   const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(createUserFormSchema),
+    resolver: yupResolver(createCallFormSchema),
   });
+  const { errors } = formState;
 
-  const handleCreateCallForUser: SubmitHandler<CreateCallFormData> = async (values) => {
-    await createCall.mutateAsync(values);
+  async function handleCreateCallForUser({ 
+    title, 
+    priority_level, 
+    anydesk_number, 
+    description
+  }: CreateCallFormData) {
+    let image_url = 'image.jpg'
+    let call_status = true
 
-    router.push('/calls');
+    const callData = { title, priority_level, anydesk_number, description, image_url, call_status};
+
+    try {
+      await api.post('calls', callData)
+
+      toast({
+        title: 'Chamado criado com sucesso!',
+        position: 'top-right',
+        status: 'success',
+        duration: 2000, // 2 seconds
+        isClosable: true
+      })
+
+      setTimeout(() => { Router.push('/calls') }, 1000); // delay 1 second
+
+    } catch (error) {
+      toast({
+        title: 'Não foi possível criar seu chamado!',
+        position: 'top-right',
+        status: 'error',
+        duration: 2000, // 2 seconds
+        isClosable: true
+      })
+    }
   }
 
-  const { errors } = formState;
 
   return (
     <Card>
@@ -98,6 +126,7 @@ export default function CreateCall() {
               error={errors.title}
               {...register("title")}
             />
+
             <Input
               name="anydesk_number"
               type="number"
@@ -106,41 +135,34 @@ export default function CreateCall() {
               {...register("anydesk_number")}
             />
 
-            <Select placeholder='Nível de prioridade'
+            <Select
+              name="priority_level"
+              label="Nivel de prioridade"
+              error={errors.priority_level}
+              options={levels}
+              ref={register("priority_level")}
               {...register("priority_level")}
-            >
-              <option value='Alta'>Alta</option>
-              <option value='Médio'>Médio</option>
-              <option value='Baixa'>Baixa</option>
-            </Select>
+            />
           </SimpleGrid>
 
           <SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
-            <Input
-              name="title"
-              type="text"
-              label="Titulo"
-              error={errors.title}
-              {...register("title")}
-            />
-            <Input
-              name="title"
-              type="text"
-              label="Titulo"
-              error={errors.title}
-              {...register("title")}
+            <TextArea
+              name="description"
+              label="Descrição"
+              error={errors.description}
+              {...register("description")}
             />
           </SimpleGrid>
         </VStack>
 
         <Flex mt="8" justify="flex-end">
           <HStack spacing="4">
-            <Link href="/users">
-              <Button as="a" colorScheme="whiteAlpha">
+            <Link href="/calls">
+              <Button as="a" colorScheme="gray">
                 Cancelar
               </Button>
             </Link>
-            <Button colorScheme="pink" type="submit" isLoading={formState.isSubmitting}>Salvar</Button>
+            <Button colorScheme="green" type="submit" isLoading={formState.isSubmitting}>Salvar</Button>
           </HStack>
         </Flex>
       </Box>

@@ -23,7 +23,7 @@ export function SearchBox({ showSearchBox }: SearchBoxProps) {
   const searchInputRef = useRef<HTMLInputElement>(null)
   
   const bg = useColorModeValue('gray.50', 'gray.800')
-  const color = useColorModeValue('gray.100', 'gray.400')
+  const color = useColorModeValue('gray.800', 'gray.50')
 
   return (
   <>

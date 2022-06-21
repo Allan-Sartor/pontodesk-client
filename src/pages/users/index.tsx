@@ -63,7 +63,7 @@ export default function UserList({ users, pagination }) {
               as="a"
               size="sm"
               fontSize="sm"
-              colorScheme="pink"
+              colorScheme="green"
               cursor="pointer"
               leftIcon={<Icon as={RiAddLine} fontSize="20" />}
             >
@@ -82,11 +82,11 @@ export default function UserList({ users, pagination }) {
           </Flex>
         ) : (
           <>
-            <Table colorScheme="whiteAlpha">
+            <Table colorScheme="white">
               <Thead>
                 <Tr>
                   <Th px={["4", "4", "6"]} color="gray.300" width="8">
-                    <Checkbox colorScheme="pink" />
+                    <Checkbox colorScheme="green" />
                   </Th>
                   <Th>Usuário</Th>
                   {isWideVersion && <Th>Data de cadastro</Th>}
@@ -119,7 +119,8 @@ export default function UserList({ users, pagination }) {
                             size="sm"
                             cursor="pointer"
                             fontSize="sm"
-                            colorScheme="purple"
+                            variant="outline"
+                            colorScheme="green"
                             leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
                           >
                             Editar

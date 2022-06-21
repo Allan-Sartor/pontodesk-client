@@ -11,25 +11,16 @@ interface SelectProps {
   name: string;
   label?: string;
   error?: FieldError;
+  options: Option[];
 }
 
-const sectors = [
-  {
-    id: 1,
-    name: 'Financeiro'
-  },
-  {
-    id: 2,
-    name: 'Recursos Humanos'
-  },
-  {
-    id: 3,
-    name: 'DEV'
-  }
-]
+type Option = {
+  id: number;
+  name: string;
+}
 
 const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-  { name, label, error = null, ...rest }, ref
+  { name, label, error = null, options, ...rest }, ref
 ) => {
   const bg = useColorModeValue('gray.100', 'gray.900')
   const focus = useColorModeValue('green.200', 'green.500')
@@ -39,22 +30,22 @@ const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
       <ChakraSelect
-        placeholder='Selecione um setor'
+        placeholder='Selecione uma'
         name={name}
         id={name}
-        focusBorderColor={focus}
+        size="lg"
         bgColor={bg}
         variant="filled"
+        focusBorderColor={focus}
         _hover={{
           bgColor: bg,
         }}
-        size="lg"
         ref={ref}
         {...rest}
       >
-        {sectors.map(sector => {
+        {options.map(option => {
           return (
-            <option key={sector.id} value={sector.name}>{sector.name}</option>
+            <option key={option.id} value={option.name}>{option.name}</option>
           )
         })}
       </ChakraSelect>

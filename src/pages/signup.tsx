@@ -31,7 +31,7 @@ const signInFormSchema = yup.object().shape({
 const sectors = [
   {
     id: 1,
-    name: 'Financeiro'
+    name: 'Administrativo/Financeiro'
   },
   {
     id: 2,
@@ -39,9 +39,35 @@ const sectors = [
   },
   {
     id: 3,
-    name: 'DEV'
+    name: 'Desenvolvimento e Produto'
+  },
+  {
+    id: 4,
+    name: 'Marketing'
+  },
+  {
+    id: 5,
+    name: 'Service'
+  },
+  {
+    id: 6,
+    name: 'Success'
+  },
+  {
+    id: 7,
+    name: 'Qualidade e Estratégia'
+  },
+  {
+    id: 8,
+    name: 'Canais'
+  },
+  {
+    id: 9,
+    name: 'Inside Sales'
   }
+
 ]
+
 
 function SignUp() {
   const { register, handleSubmit, formState } = useForm({

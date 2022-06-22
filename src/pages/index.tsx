@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import ButtonLightOrDark from "../components/ButtonLightOrDark";
 import { Logo } from "../components/Header/Logo";
+import { Title } from "../components/Title";
 
 type SignInFormData = {
   email: string;
@@ -35,6 +36,7 @@ export default function SignIn() {
 
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center" flexDirection="column">
+      <Title name="Pontodesk. | Login"/>
       <Logo
         fontsize={["3xl", "5xl"]}
         marginBottom={5}

@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { parseCookies } from 'nookies'
 import Card from "../components/Card";
 import { Charts } from "../components/Charts";
+import { Title } from "../components/Title";
 
 export default function Dashboard() {
   const bg = useColorModeValue('gray.50', 'gray.800')
@@ -10,6 +11,7 @@ export default function Dashboard() {
   return (
     <Card>
       <SimpleGrid flex="1" gap="4" minChildWidth="360px" alignItems="flex-start">
+        <Title name="Pontodesk. | Dashboard"/>
           <Box
             p={["6", "8"]}
             bg={bg}

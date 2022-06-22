@@ -11,6 +11,7 @@ import { Form } from "../components/Form";
 import { apiCreateUser } from "../services/api";
 import Router from 'next/router'
 import { Select } from "../components/Form/Select";
+import { Title } from "../components/Title";
 
 type SignUpProps = {
   name: string;
@@ -106,6 +107,7 @@ function SignUp() {
 
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center" flexDirection="column">
+      <Title name="Pontodesk. | Cadastrar"/>
       <Logo
         fontsize={["3xl", "5xl"]}
         marginBottom={5}

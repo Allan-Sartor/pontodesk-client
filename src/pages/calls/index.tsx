@@ -9,6 +9,7 @@ import CardBox from '../../components/CardBox';
 
 import { getAPIClient } from '../../services/axios';
 import { RiCheckLine, RiEyeLine, RiPencilLine } from 'react-icons/ri';
+import { Title } from '../../components/Title';
 
 type CallsProps = {
   calls: Call[];
@@ -37,6 +38,7 @@ export default function CallsList({ calls }: CallsProps) {
     <Card>
       <CardBox title="Chamados em aberto" buttonRedirect="/calls/create">
         <>
+          <Title name="Pontodesk. | Chamados"/>
           <Table colorScheme={schemeColor}>
             <Thead>
               <Tr>

@@ -29,6 +29,7 @@ import { useQuery } from "react-query";
 import { parseCookies } from "nookies";
 import Card from "../../components/Card";
 import { getAPIClient } from "../../services/axios";
+import { Title } from "../../components/Title";
 
 export default function UserList({ users, pagination }) {
   const bg = useColorModeValue('gray.50', 'gray.800');
@@ -51,6 +52,7 @@ export default function UserList({ users, pagination }) {
   return (
     <Card>
       <Box flex="1" borderRadius={8} bg={bg} p="8">
+        <Title name="Pontodesk. | Usuários"/>
         <Flex mb="8" justify="space-between" align="center">
           <Heading size="lg" fontWeight="normal">
             Usuários

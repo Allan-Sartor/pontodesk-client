@@ -11,17 +11,19 @@ export function SidebarNav() {
   return (
     <Stack spacing="12" align="flex-start">
       <NavSection title="GERAL">
-        {user ?
-          user.admin === true ?
-            <>
-              <NavLink icon={RiLineChartLine} href="/dashboard">Dashboard</NavLink>
-              <NavLink icon={RiTeamFill} href="/users">Usuários</NavLink>
-              <NavLink icon={RiTaskLine} href="/calls">Chamados</NavLink>
-            </> 
-              : 
-            <NavLink icon={RiTaskLine} href="/calls">Meus chamados</NavLink> 
-              : 
-            ''}
+        {
+          user ?
+            user.admin === true ?
+              <>
+                <NavLink icon={RiLineChartLine} href="/dashboard">Dashboard</NavLink>
+                <NavLink icon={RiTeamFill} href="/users">Usuários</NavLink>
+                <NavLink icon={RiTaskLine} href="/calls">Chamados</NavLink>
+              </>
+              :
+              <NavLink icon={RiTaskLine} href="/calls">Meus chamados</NavLink>
+            :
+            ''
+        }
       </NavSection>
     </Stack>
   );

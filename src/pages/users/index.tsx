@@ -38,12 +38,7 @@ export default function UserList({ users, pagination }) {
   // const { data, isLoading, isFetching, error, refetch } = useUsers(page, {
   //   initialData: users,
   // });
-  const { isLoading, error } = useQuery('users', async () => {
-    // const data = await api.get("/usersall");
-
-    // return data;
-  })
-
+  
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -74,7 +69,7 @@ export default function UserList({ users, pagination }) {
           </NextLink>
         </Flex>
 
-        {isLoading ? (
+        {/* {isLoading ? (
           <Flex justify="center">
             <Spinner />
           </Flex>
@@ -135,14 +130,14 @@ export default function UserList({ users, pagination }) {
               </Tbody>
             </Table>
 
-            {/* <Pagination 
+            <Pagination 
                 totalCountOfRegisters={pagination.meta.totalItems}
                 currentPage={pagination.meta.current_page}
                 registerPerPage={pagination.meta.itemsPerPage}
                 onPageChange={setPage}
-              /> */}
+              />
           </>
-        )}
+        )} */}
       </Box>
     </Card>
   );

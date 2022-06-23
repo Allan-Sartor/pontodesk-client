@@ -5,7 +5,7 @@ import { RiAddLine } from 'react-icons/ri';
 
 type CardBoxProps = {
   title: string;
-  buttonRedirect: string;
+  buttonRedirect?: string;
   children: ReactElement;
 }
 export default function CardBox({ title, buttonRedirect, children }: CardBoxProps) {

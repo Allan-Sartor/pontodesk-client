@@ -1,4 +1,4 @@
-import { Button, Flex, Stack, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Button, Flex, Link, Stack, Text, useColorModeValue, useToast } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +12,7 @@ import { apiCreateUser } from "../services/api";
 import Router from 'next/router'
 import { Select } from "../components/Form/Select";
 import { Title } from "../components/Title";
+import ButtonLightOrDark from "../components/ButtonLightOrDark";
 
 type SignUpProps = {
   name: string;
@@ -66,7 +67,6 @@ const sectors = [
     id: 9,
     name: 'Inside Sales'
   }
-
 ]
 
 
@@ -76,7 +76,8 @@ function SignUp() {
   });
   const { errors } = formState;
   const toast = useToast();
-  const bg = useColorModeValue('gray.50', 'gray.800')
+  const bg = useColorModeValue('gray.50', 'gray.800');
+  const color = useColorModeValue('green', 'green.600');
 
   async function handleCreateUser({ name, email, password, password_confirmation, sector }: SignUpProps) {
     const userData = { name, email, password, password_confirmation, sector };
@@ -107,7 +108,8 @@ function SignUp() {
 
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center" flexDirection="column">
-      <Title name="Pontodesk. | Cadastrar"/>
+      <Title name="Pontodesk. | Cadastrar" />
+
       <Logo
         fontsize={["3xl", "5xl"]}
         marginBottom={5}
@@ -170,7 +172,20 @@ function SignUp() {
         >
           Cadastrar
         </Button>
+
+        <Flex justify="space-between" align="flex-start">
+          <Text mr={3} mt={4} color={color}>
+            Já possui conta?
+            <Link ml={2} href="/">
+              Clique aqui!
+            </Link>
+          </Text>
+        </Flex>
       </Form>
+
+      <Flex mt={2}>
+        <ButtonLightOrDark />
+      </Flex>
     </Flex>
   );
 }

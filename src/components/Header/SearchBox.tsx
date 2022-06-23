@@ -21,39 +21,42 @@ interface SearchBoxProps {
 
 export function SearchBox({ showSearchBox }: SearchBoxProps) {
   const searchInputRef = useRef<HTMLInputElement>(null)
-  
+
   const bg = useColorModeValue('gray.50', 'gray.800')
-  const color = useColorModeValue('gray.800', 'gray.50')
+  const color = useColorModeValue('gray.900', 'gray.200')
 
   return (
-  <>
-    {showSearchBox && (
-      <Flex
-      as="label"
-      flex="1"
-      py="4"
-      px="8"
-      ml="6"
-      maxWidth={400}
-      alignSelf="center"
-      color={color}
-      position="relative"
-      bg={bg}
-      borderRadius="full"
-    >
-      <Input
-        color="gray.50"
-        variant="unstyled"
-        px="4"
-        mr="4"
-        placeholder="Buscar na plataforma"
-        _placeholder={{ color }}
-        ref={searchInputRef}
-      />
+    <>
+      {
+        showSearchBox &&
+        (
+          <Flex
+            as="label"
+            flex="1"
+            py="4"
+            px="6"
+            ml="8"
+            bg={bg}
+            maxWidth={400}
+            color={color}
+            alignSelf="center"
+            position="relative"
+            borderRadius="7"
+          >
+            <Input
+              color={color}
+              variant="unstyled"
+              px="4"
+              mr="3"
+              placeholder="Buscar chamado..."
+              _placeholder={{ color }}
+              ref={searchInputRef}
+            />
 
-      <Icon as={RiSearchLine} fontSize="20" />
-    </Flex>
-    )}
-  </>
+            <Icon as={RiSearchLine} fontSize="20" />
+          </Flex>
+        )
+      }
+    </>
   );
 }

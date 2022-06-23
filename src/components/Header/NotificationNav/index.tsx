@@ -1,27 +1,16 @@
-import { HStack, Icon, useColorModeValue, useToast } from "@chakra-ui/react";
-import { destroyCookie, parseCookies } from "nookies";
-import { RiLogoutCircleLine, RiNotificationLine, RiUserAddLine } from "react-icons/ri";
-import Router from 'next/router'
+import {
+  HStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
+
+import {
+  RiNotificationLine,
+} from "react-icons/ri";
+
 import ButtonNav from "./ButtonNav";
 
 export function NotificationNav() {
-  const toast = useToast();
   const bg = useColorModeValue('gray.400', 'gray.500');
-  const focus = useColorModeValue('green.200', 'green.500');
-
-  function handleLogoutUser() {
-    destroyCookie(null, 'pontodesk.token');
-
-    toast({
-      title: 'Logout realizado com sucesso!',
-      position: 'top-right',
-      status: 'success',
-      duration: 2000, // 2 seconds
-      isClosable: true,
-    })
-
-    Router.push('/');
-  }
 
   return (
     <HStack
@@ -33,9 +22,7 @@ export function NotificationNav() {
       borderRightWidth={1}
       borderColor="gray.700"
     >
-      <ButtonNav title="Sair" onclick={handleLogoutUser} icon={RiLogoutCircleLine} />
-      <ButtonNav title="Adicionar usuário" onclick={handleLogoutUser} icon={RiUserAddLine} />
-      <ButtonNav title="Notificações" onclick={handleLogoutUser} icon={RiNotificationLine} />
+      <ButtonNav title="Notificações" onclick={() => {}} icon={RiNotificationLine} />
     </HStack>
   );
 }

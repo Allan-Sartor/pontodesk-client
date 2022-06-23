@@ -1,13 +1,20 @@
-import { Button, Flex, Icon, IconButton, useBreakpointValue, useColorMode } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
+import { 
+  Button, 
+  Flex, 
+  Icon, 
+  IconButton, 
+  useBreakpointValue, 
+} from "@chakra-ui/react";
+
 import { RiMenuLine, RiMoonLine, RiSunLine } from "react-icons/ri";
+
 import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext";
-import { api } from "../../services/api";
-import ButtonLightOrDark from "../ButtonLightOrDark";
+
 import { Logo } from "./Logo";
 import { NotificationNav } from "./NotificationNav";
 import { Profile } from "./Profile";
 import { SearchBox } from "./SearchBox";
+import ButtonLightOrDark from "../ButtonLightOrDark";
 
 export function Header() {
   const { onOpen } = useSidebarDrawer();
@@ -15,14 +22,14 @@ export function Header() {
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
-  })
+  });
 
   return (
     <Flex
       as="header"
       w="100%"
       maxWidth={1480}
-      h="20" // formato de espaçamento
+      h="20"
       mx="auto"
       mt="4"
       px="6"
@@ -52,13 +59,4 @@ export function Header() {
       </Flex>
     </Flex>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  api.get('/auth/validate_token').then((response) => { console.log(response.data); });
-
-
-  return {
-    props: {}
-  }
 }

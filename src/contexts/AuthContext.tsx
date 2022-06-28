@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
           setUser(response.data.user)
 
           setCookie(undefined, 'pontodesk.token', token,
-            { maxAge: 60 * 60 * 1 } // 1 hour
+            { maxAge: 60 * 60 * 3 } // 3 hour
           );
 
           toast({

@@ -30,8 +30,9 @@ import { parseCookies } from "nookies";
 import Card from "../../components/Card";
 import { getAPIClient } from "../../services/axios";
 import { Title } from "../../components/Title";
+import { Pagination } from "../../components/Pagination";
 
-export default function UserList({ users, pagination }) {
+export default function UserList({ users, pagination, error, isLoading }) {
   const bg = useColorModeValue('gray.50', 'gray.800');
 
   const [page, setPage] = useState(1);
@@ -69,11 +70,7 @@ export default function UserList({ users, pagination }) {
           </NextLink>
         </Flex>
 
-        {/* {isLoading ? (
-          <Flex justify="center">
-            <Spinner />
-          </Flex>
-        ) : error ? (
+        { error ? (
           <Flex justify="center">
             <Text>Falha ao obter todos os chamados!</Text>
           </Flex>
@@ -131,13 +128,13 @@ export default function UserList({ users, pagination }) {
             </Table>
 
             <Pagination 
-                totalCountOfRegisters={pagination.meta.totalItems}
-                currentPage={pagination.meta.current_page}
-                registerPerPage={pagination.meta.itemsPerPage}
+                totalCountOfRegisters={pagination.totalItems}
+                currentPage={pagination.current_page}
+                registerPerPage={pagination.itemsPerPage}
                 onPageChange={setPage}
               />
           </>
-        )} */}
+        )}
       </Box>
     </Card>
   );
@@ -158,13 +155,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { data } = await apiClient.get("/usersall");
 
-  const users = data.users
-  const pagination = data.pagination.meta
-  
-  return {
-    props: {
-      users,
-      pagination
+  if (data) {
+    const users = data.users
+    const pagination = data.pagination.meta
+
+    return {
+      props: {
+        users,
+        pagination,
+      }
+    }
+  } else {
+    const error = data.error
+
+    return {
+      props: {
+        error
+      }
     }
   }
+  
 }

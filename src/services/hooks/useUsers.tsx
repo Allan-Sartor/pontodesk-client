@@ -45,9 +45,8 @@ export async function getUsers(): Promise<getUsersResponse> {
   };
 }
 
-export function useUsers(currentPage: number, options: UseQueryOptions) {
-  return useQuery(['users', currentPage, 'pagination'], () => getUsers(), {
+export function useUsers() {
+  return getUsers(), {
     staleTime: 1000 * 60 * 10, // 10 minutos
-    ...options,
-  }); // qual chave que vai ser armazenado no cache
+  };
 }

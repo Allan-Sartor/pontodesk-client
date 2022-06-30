@@ -12,6 +12,7 @@ export default function Dashboard() {
     <Card>
       <SimpleGrid flex="1" gap="4" minChildWidth="360px" alignItems="flex-start">
         <Title name="Pontodesk. | Dashboard"/>
+
           <Box
             p={["6", "8"]}
             bg={bg}

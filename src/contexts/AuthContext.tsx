@@ -3,12 +3,14 @@ import { api } from "../services/api";
 import { setCookie, parseCookies } from 'nookies';
 import Router from 'next/router'
 import { useToast } from "@chakra-ui/react";
+import { Call } from "../pages/calls";
 
 type User = {
   name: string;
   email: string;
   admin: boolean;
   created_at: Date;
+  call: Call[];
 }
 
 type AuthContextType = {
@@ -25,8 +27,8 @@ type SignInData = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState<User | null>(null)
-  const toast = useToast()
+  const [user, setUser] = useState<User | null>(null);
+  const toast = useToast();
 
   const isAuthenticated = !!user;
 

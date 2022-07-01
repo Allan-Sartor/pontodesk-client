@@ -55,19 +55,6 @@ export default function UserList({ users, pagination, error, isLoading }) {
 
             {/* { !isLoading && isFetching && <Spinner size="sm" color="gray.500" ml="4"/> } */}
           </Heading>
-
-          <NextLink href="/calls/create">
-            <Button
-              as="a"
-              size="sm"
-              fontSize="sm"
-              colorScheme="green"
-              cursor="pointer"
-              leftIcon={<Icon as={RiAddLine} fontSize="20" />}
-            >
-              Criar novo
-            </Button>
-          </NextLink>
         </Flex>
 
         { error ? (

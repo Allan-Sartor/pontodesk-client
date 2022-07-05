@@ -23,18 +23,24 @@ export default function CardBox({ title, buttonRedirect, children }: CardBoxProp
           {title}
         </Heading>
 
-        <NextLink href={buttonRedirect}>
-          <Button
-            as="a"
-            size="sm"
-            fontSize="sm"
-            colorScheme="green"
-            cursor="pointer"
-            leftIcon={<Icon as={RiAddLine} fontSize="20" />}
-          >
-            Criar novo
-          </Button>
-        </NextLink>
+        {
+          buttonRedirect ?
+            <NextLink href={buttonRedirect}>
+              <Button
+                as="a"
+                size="sm"
+                fontSize="sm"
+                colorScheme="green"
+                cursor="pointer"
+                leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+              >
+                Criar novo
+              </Button>
+            </NextLink>
+            :
+            <></>
+        }
+
       </Flex>
       {children}
     </Box>

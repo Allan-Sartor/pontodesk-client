@@ -3,7 +3,7 @@ import Router from "next/router";
 import { destroyCookie } from "nookies";
 import React, { useContext } from "react";
 import { RiContactsLine, RiLogoutBoxLine, RiMenuLine, RiShieldUserLine } from "react-icons/ri";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../services/contexts/AuthContext";
 interface ProfileProps {
   showProfileData?: boolean;
 }

@@ -1,7 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 import { useContext } from "react";
 import { RiTeamFill, RiTaskLine, RiLineChartLine } from "react-icons/ri";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../services/contexts/AuthContext";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 

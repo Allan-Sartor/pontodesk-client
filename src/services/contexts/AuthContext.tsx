@@ -1,30 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import { api } from "../services/api";
+import { api } from "../api";
 import { setCookie, parseCookies } from 'nookies';
 import Router from 'next/router'
 import { useToast } from "@chakra-ui/react";
-import { Call } from "../pages/calls";
+import { User } from "../interfaces/user";
+import { AuthContextProps, SignInData } from "../interfaces/authenticate";
 
-type User = {
-  name: string;
-  email: string;
-  admin: boolean;
-  created_at: Date;
-  call: Call[];
-}
-
-type AuthContextType = {
-  user: User;
-  isAuthenticated: boolean;
-  signIn: (data: SignInData) => void;
-}
-
-type SignInData = {
-  email: string;
-  password: string;
-}
-
-export const AuthContext = createContext({} as AuthContextType);
+export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<User | null>(null);
@@ -33,26 +15,6 @@ export function AuthProvider({ children }) {
   const isAuthenticated = !!user;
 
   useEffect(() => {
-    async function getValidatedUserToken() {
-      const { 'pontodesk.token': token } = await parseCookies();
-
-      if (token) {
-        await api.get('auth_token')
-          .then((response) => {
-            setUser(response.data);
-          })
-          .catch((error) => {
-            toast({
-              title: `${error.message}`,
-              position: 'top-right',
-              status: 'error',
-              duration: 2000, // 2 seconds
-              isClosable: true,
-            })
-          });
-      }
-    }
-
     getValidatedUserToken();
   }, [])
 
@@ -67,6 +29,8 @@ export function AuthProvider({ children }) {
           setCookie(undefined, 'pontodesk.token', token,
             { maxAge: 60 * 60 * 3 } // 3 hour
           );
+
+          localStorage.setItem('currentUser', JSON.stringify(response.data.user))
 
           toast({
             title: 'Login realizado com sucesso!',
@@ -102,6 +66,26 @@ export function AuthProvider({ children }) {
           isClosable: true,
         })
       })
+  }
+
+  async function getValidatedUserToken() {
+    const { 'pontodesk.token': token } = await parseCookies();
+
+    if (token) {
+      await api.get('auth_token')
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          toast({
+            title: `${error.message}`,
+            position: 'top-right',
+            status: 'error',
+            duration: 2000, // 2 seconds
+            isClosable: true,
+          })
+        });
+    }
   }
 
   return (

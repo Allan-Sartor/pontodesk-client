@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from "react-query";
 import { api } from "../api";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;

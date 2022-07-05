@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-import { useContext } from 'react';
 
 import { parseCookies } from 'nookies';
 
@@ -8,36 +7,20 @@ import { Box, Button, Checkbox, Flex, Icon, Link, Table, Tbody, Td, Text, Th, Th
 import Card from '../../components/Card';
 import CardBox from '../../components/CardBox';
 
-import { getAPIClient } from '../../services/axios';
 import { RiCheckLine, RiEyeLine, RiPencilLine } from 'react-icons/ri';
 import { Title } from '../../components/Title';
-import { AuthContext } from '../../contexts/AuthContext';
-
-type CallsProps = {
-  calls: Call[];
-}
-
-export type Call = {
-  id: number;
-  title: string;
-  priority_level: string;
-  anydesk_number: number;
-  description: string;
-  call_status: boolean;
-  created_at: Date;
-  image_url: string;
-}
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../services/contexts/AuthContext';
+import { getAPIClient } from '../../services/axios';
+import { CallsProps } from '../../services/interfaces/calls';
 
 export default function CallsList({ calls }: CallsProps) {
+  const schemeColor = useColorModeValue('green', 'gray');
   const { user } = useContext(AuthContext);
-  console.log('user', user)
-
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
-
-  const schemeColor = useColorModeValue('green', 'gray');
 
   return (
     <Card>
@@ -157,7 +140,7 @@ export default function CallsList({ calls }: CallsProps) {
             <>
               <Title name="Pontodesk. | Chamados" />
 
-              {user.call != undefined ?
+              {user.call.length > 0 ?
                 <Table colorScheme={schemeColor}>
                   <Thead>
                     <Tr>
@@ -172,91 +155,87 @@ export default function CallsList({ calls }: CallsProps) {
                   </Thead>
 
                   <Tbody>
+                    {user.call.map(call => {
+                      return (
+                        <Tr key={call.id}>
+                          <Td px={["4", "4", "6"]}>
+                            <Checkbox colorScheme="green" />
+                          </Td>
 
-                    {user.call.length > 0 ?
-                      user.call.map(call => {
-                        return (
-                          <Tr key={call.id}>
-                            <Td px={["4", "4", "6"]}>
-                              <Checkbox colorScheme="green" />
-                            </Td>
+                          <Td>
+                            <Box>
+                              <Link color="green.400">
+                                <Text fontWeight="bold">{call.title}</Text>
+                              </Link>
+                            </Box>
+                          </Td>
 
-                            <Td>
-                              <Box>
-                                <Link color="green.400">
-                                  <Text fontWeight="bold">{call.title}</Text>
-                                </Link>
-                              </Box>
-                            </Td>
-
-                            {
-                              call.call_status === true
-                                ?
-                                <Td>
-                                  <Text fontWeight="bold" color="yellow.400">Aberto</Text>
-                                </Td>
-                                :
-                                <Td>
-                                  <Text fontWeight="bold" color="green.400">Resolvido</Text>
-                                </Td>
-                            }
-
-                            {
-                              isWideVersion && <Td>
-                                {
-                                  new Intl.DateTimeFormat("pt-br")
-                                    .format(new Date(call.created_at))
-                                }
+                          {
+                            call.call_status === true
+                              ?
+                              <Td>
+                                <Text fontWeight="bold" color="yellow.400">Aberto</Text>
                               </Td>
-                            }
+                              :
+                              <Td>
+                                <Text fontWeight="bold" color="green.400">Resolvido</Text>
+                              </Td>
+                          }
 
-                            <Td>
+                          {
+                            isWideVersion && <Td>
                               {
-                                isWideVersion && (
-                                  <Flex justify="center">
-                                    <Button
-                                      as="a"
-                                      size="sm"
-                                      cursor="pointer"
-                                      fontSize="sm"
-                                      colorScheme="green"
-                                      leftIcon={<Icon as={RiPencilLine} fontSize="20" />}
-                                      variant='outline'
-                                    >
-                                      Editar
-                                    </Button>
-
-                                    <Button
-                                      as="a"
-                                      size="sm"
-                                      cursor="pointer"
-                                      fontSize="sm"
-                                      colorScheme="green"
-                                      leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
-                                      variant='outline'
-                                    >
-                                      Visualizar
-                                    </Button>
-
-                                    <Button
-                                      as="a"
-                                      size="sm"
-                                      cursor="pointer"
-                                      fontSize="sm"
-                                      colorScheme="green"
-                                      leftIcon={<Icon as={RiCheckLine} fontSize="20" />}
-                                      variant='outline'
-                                    >
-                                      Resolver
-                                    </Button>
-                                  </Flex>
-                                )}
+                                new Intl.DateTimeFormat("pt-br")
+                                  .format(new Date(call.created_at))
+                              }
                             </Td>
-                          </Tr>
-                        )
-                      }) : 
-                      <></>
-                    }
+                          }
+
+                          <Td>
+                            {
+                              isWideVersion && (
+                                <Flex justify="center">
+                                  <Button
+                                    as="a"
+                                    size="sm"
+                                    cursor="pointer"
+                                    fontSize="sm"
+                                    colorScheme="green"
+                                    leftIcon={<Icon as={RiPencilLine} fontSize="20" />}
+                                    variant='outline'
+                                  >
+                                    Editar
+                                  </Button>
+
+                                  <Button
+                                    as="a"
+                                    size="sm"
+                                    cursor="pointer"
+                                    fontSize="sm"
+                                    colorScheme="green"
+                                    leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
+                                    variant='outline'
+                                  >
+                                    Visualizar
+                                  </Button>
+
+                                  <Button
+                                    as="a"
+                                    size="sm"
+                                    cursor="pointer"
+                                    fontSize="sm"
+                                    colorScheme="green"
+                                    leftIcon={<Icon as={RiCheckLine} fontSize="20" />}
+                                    variant='outline'
+                                  >
+                                    Resolver
+                                  </Button>
+                                </Flex>
+                              )}
+                          </Td>
+                        </Tr>
+                      )
+                    })}
                   </Tbody>
                 </Table>
                 :
@@ -273,6 +252,7 @@ export default function CallsList({ calls }: CallsProps) {
       }
     </Card>
   );
+
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -288,9 +268,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
+  
   const { data } = await apiClient.get("/calls_all");
-  const calls = data
-  // const pagination = data.pagination.meta
+
+  const calls = data;
 
   return {
     props: {

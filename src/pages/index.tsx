@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../services/contexts/AuthContext";
 import ButtonLightOrDark from "../components/ButtonLightOrDark";
 import { Logo } from "../components/Header/Logo";
 import { Title } from "../components/Title";

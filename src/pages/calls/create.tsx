@@ -34,10 +34,10 @@ type CreateCallFormData = {
 };
 
 const createCallFormSchema = yup.object().shape({
-  title: yup.string().required("Título obrigatório"),
-  priority_level: yup.string().required('Selecione uma opção'),
-  anydesk_number: yup.string().required("Código obrigatório").max(9, "O código precisa ter 9 caracteres"),
-  description: yup.string().required()
+  title: yup.string().required("Título obrigatório!"),
+  priority_level: yup.string().required('Selecione uma opção!'),
+  anydesk_number: yup.string().required("Código obrigatório!").max(9, "O código precisa ter 9 caracteres!"),
+  description: yup.string().required("Descrição obrigatória!").min(10, "A descrição  precisa ter no mínimo 10 caracteres!")
 });
 
 const levels = [
@@ -75,11 +75,19 @@ export default function CreateCall() {
     let image_url = 'image.jpg'
     let call_status = true
 
-    const callData = { title, priority_level, anydesk_number, description, image_url, call_status};
+    const callData = await { title, priority_level, anydesk_number, description, image_url, call_status};
 
     try {
-      await api.post('calls', callData)
-
+      await api.post('calls', callData).then((response) => {console.warn(response.data)});
+    } catch (error) {
+      toast({
+        title: 'Não foi possível criar seu chamado!',
+        position: 'top-right',
+        status: 'error',
+        duration: 2000, // 2 seconds
+        isClosable: true
+      })
+    } finally {
       toast({
         title: 'Chamado criado com sucesso!',
         position: 'top-right',
@@ -89,18 +97,8 @@ export default function CreateCall() {
       })
 
       setTimeout(() => { Router.push('/calls') }, 1000); // delay 1 second
-
-    } catch (error) {
-      toast({
-        title: 'Não foi possível criar seu chamado!',
-        position: 'top-right',
-        status: 'error',
-        duration: 2000, // 2 seconds
-        isClosable: true
-      })
     }
   }
-
 
   return (
     <Card>

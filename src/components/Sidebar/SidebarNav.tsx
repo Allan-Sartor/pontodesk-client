@@ -17,10 +17,10 @@ export function SidebarNav() {
               <>
                 <NavLink icon={RiLineChartLine} href="/dashboard">Dashboard</NavLink>
                 <NavLink icon={RiTeamFill} href="/users">Usuários</NavLink>
-                <NavLink icon={RiTaskLine} href="/calls">Chamados</NavLink>
+                <NavLink icon={RiTaskLine} href="/ticket-management">Chamados</NavLink>
               </>
               :
-              <NavLink icon={RiTaskLine} href="/calls">Meus chamados</NavLink>
+              <NavLink icon={RiTaskLine} href="/user-ticket-management">Meus chamados</NavLink>
             :
             ''
         }

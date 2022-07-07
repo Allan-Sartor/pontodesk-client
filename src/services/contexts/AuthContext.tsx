@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
               if (response.data.user.admin === true) {
                 Router.push('dashboard')
               } else {
-                Router.push('calls')
+                Router.push('user-ticket-management')
               }
             }, 500) // 500 miliseconds 
           )

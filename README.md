@@ -2,7 +2,7 @@
   📃 Sobre a aplicação
 </h2>
 
-<i>Finance.</i> É uma aplicação onde o foco é resolver um problema de controle interno de chamados de suporte técnico. Tendo isso como referência dentro do sistema você poderá: 
+<i>Pontodesk.</i> É uma aplicação onde o foco é resolver um problema de controle interno de chamados de suporte técnico. Tendo isso como referência dentro do sistema você poderá: 
 
 <ul>
   <li>Criar sua conta de usuário para poder começar a solicitar seus chamados e claro acompanhar seu status em tempo real.</li>
@@ -41,7 +41,7 @@ Para o desenvolvimento do sistema, foram utilizados as principais ferramentas:
 1. Clone o repositório em sua maquina utilizando :
 
 ```sh
-  $ git clone https://github.com/Allan-Sartor/client-v1.git
+  $ git clone https://github.com/Allan-Sartor/pontodesk-client.git
 ```
 2. Instale as dependências do projeto:
 ```sh

@@ -3,11 +3,11 @@ import React, { ReactElement } from 'react';
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
 
-type CardProps = {
+type LayoutProps = {
   children?: ReactElement;
 }
 
-export default function Card({ children }: CardProps) {
+export function Layout({ children }: LayoutProps) {
   return (
     <Flex
       direction="column"
@@ -29,7 +29,7 @@ export default function Card({ children }: CardProps) {
       <Header />
       <Flex w="100%" maxWidth={1480} my="6" mx="auto" px="6">
         <Sidebar />
-        {children}
+        { children }
       </Flex>
     </Flex>
   )

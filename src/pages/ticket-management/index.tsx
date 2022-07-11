@@ -2,7 +2,7 @@ import { Box, Button, Checkbox, Flex, Icon, Link, Spinner, Table, Tbody, Td, Tex
 import React from 'react'
 import { RiCheckLine, RiEyeLine, RiPencilLine } from 'react-icons/ri'
 import { useQuery } from 'react-query'
-import Card from '../../components/Card'
+import { Layout } from '../../components/Layout'
 import CardBox from '../../components/CardBox'
 import { Title } from '../../components/Title'
 import { getAPIClient } from '../../services/axios'
@@ -21,7 +21,7 @@ export default function ticketList() {
   });
 
   return (
-    <Card>
+    <Layout>
       <CardBox title="Chamados em aberto">
         <>
           <Title name="Pontodesk. | Chamados" />
@@ -142,6 +142,6 @@ export default function ticketList() {
           }
         </>
       </CardBox>
-    </Card>
+    </Layout>
   )
 }

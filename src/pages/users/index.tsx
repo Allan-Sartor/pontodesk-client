@@ -27,7 +27,7 @@ import { useState } from "react";
 import { GetServerSideProps } from "next";
 import { useQuery } from "react-query";
 import { parseCookies } from "nookies";
-import Card from "../../components/Card";
+import { Layout } from "../../components/Layout";
 import { getAPIClient } from "../../services/axios";
 import { Title } from "../../components/Title";
 import { Pagination } from "../../components/Pagination";
@@ -39,16 +39,16 @@ export default function UserList({ users, pagination, error, isLoading }) {
   // const { data, isLoading, isFetching, error, refetch } = useUsers(page, {
   //   initialData: users,
   // });
-  
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
   return (
-    <Card>
+    <Layout>
       <Box flex="1" borderRadius={8} bg={bg} p="8">
-        <Title name="Pontodesk. | Usuários"/>
+        <Title name="Pontodesk. | Usuários" />
         <Flex mb="8" justify="space-between" align="center">
           <Heading size="lg" fontWeight="normal">
             Usuários
@@ -57,7 +57,7 @@ export default function UserList({ users, pagination, error, isLoading }) {
           </Heading>
         </Flex>
 
-        { error ? (
+        {error ? (
           <Flex justify="center">
             <Text>Falha ao obter todos os chamados!</Text>
           </Flex>
@@ -114,16 +114,16 @@ export default function UserList({ users, pagination, error, isLoading }) {
               </Tbody>
             </Table>
 
-            <Pagination 
-                totalCountOfRegisters={pagination.totalItems}
-                currentPage={pagination.current_page}
-                registerPerPage={pagination.itemsPerPage}
-                onPageChange={setPage}
-              />
+            <Pagination
+              totalCountOfRegisters={pagination.totalItems}
+              currentPage={pagination.current_page}
+              registerPerPage={pagination.itemsPerPage}
+              onPageChange={setPage}
+            />
           </>
         )}
       </Box>
-    </Card>
+    </Layout>
   );
 }
 
@@ -161,5 +161,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
   }
-  
+
 }

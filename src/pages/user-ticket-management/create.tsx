@@ -20,7 +20,7 @@ import { api } from "../../services/api";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
-import Card from "../../components/Card";
+import { Layout } from "../../components/Layout";
 import { Select } from "../../components/Form/Select";
 import { TextArea } from "../../components/Form/TextArea";
 
@@ -58,27 +58,27 @@ const levels = [
 export default function CreateCall() {
   const Router = useRouter();
   const toast = useToast();
-  
+
   const bg = useColorModeValue('gray.50', 'gray.800');
-  
+
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createCallFormSchema),
   });
   const { errors } = formState;
 
-  async function handleCreateCallForUser({ 
-    title, 
-    priority_level, 
-    anydesk_number, 
+  async function handleCreateCallForUser({
+    title,
+    priority_level,
+    anydesk_number,
     description
   }: CreateCallFormData) {
     let image_url = 'image.jpg'
     let call_status = true
 
-    const callData = await { title, priority_level, anydesk_number, description, image_url, call_status};
+    const callData = await { title, priority_level, anydesk_number, description, image_url, call_status };
 
     try {
-      await api.post('calls', callData).then((response) => {console.warn(response.data)});
+      await api.post('calls', callData).then((response) => { console.warn(response.data) });
     } catch (error) {
       toast({
         title: 'Não foi possível criar seu chamado!',
@@ -101,7 +101,7 @@ export default function CreateCall() {
   }
 
   return (
-    <Card>
+    <Layout>
       <Box as="form"
         flex="1"
         borderRadius={8}
@@ -164,7 +164,7 @@ export default function CreateCall() {
           </HStack>
         </Flex>
       </Box>
-    </Card>
+    </Layout>
   );
 }
 

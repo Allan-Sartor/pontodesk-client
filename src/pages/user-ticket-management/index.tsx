@@ -23,20 +23,30 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 
-import Card from '../../components/Card';
+import { Layout } from '../../components/Layout';
 import CardBox from '../../components/CardBox';
 import { Title } from '../../components/Title';
 import { getAPIClient } from '../../services/axios';
+import { useRouter } from 'next/router';
 
 export default function userTicketList({ ticketsOfUser }) {
+  const Router = useRouter();
   const schemeColor = useColorModeValue('green', 'gray');
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
+  function handleShowTicketUser(ticket_id) {
+    let id = ticket_id;
+
+    console.warn(id)
+
+    Router.push('/show-ticket/', ticket_id)
+  }
+
   return (
-    <Card>
+    <Layout>
       <CardBox title="Meus chamados" buttonRedirect="/user-ticket-management/create">
         <>
           <Title name="Pontodesk. | Chamados" />
@@ -45,8 +55,8 @@ export default function userTicketList({ ticketsOfUser }) {
             <Table colorScheme={schemeColor}>
               <Thead>
                 <Tr>
-                  <Th px={["4", "4", "6"]} color="gray.300" width="8">
-                    <Checkbox colorScheme="green" />
+                  <Th px={["4", "4", "6"]} color="gray.300" width="9">
+                    ID
                   </Th>
                   <Th>Titulo</Th>
                   <Th>Status</Th>
@@ -60,7 +70,7 @@ export default function userTicketList({ ticketsOfUser }) {
                   return (
                     <Tr key={ticket.id}>
                       <Td px={["4", "4", "6"]}>
-                        <Checkbox colorScheme="green" />
+                        <Text color="gray.300">{ticket.id}</Text>
                       </Td>
 
                       <Td>
@@ -96,41 +106,22 @@ export default function userTicketList({ ticketsOfUser }) {
                         {
                           isWideVersion && (
                             <Flex justify="center">
-                              <Button
-                                as="a"
-                                size="sm"
-                                cursor="pointer"
-                                fontSize="sm"
-                                colorScheme="green"
-                                leftIcon={<Icon as={RiPencilLine} fontSize="20" />}
-                                variant='outline'
+                              <Link 
+                                href={`user-ticket-management/show-ticket/${encodeURIComponent(ticket.id)}`}
                               >
-                                Editar
-                              </Button>
+                                <Button
+                                  as="a"
+                                  size="sm"
+                                  cursor="pointer"
+                                  fontSize="sm"
+                                  colorScheme="green"
+                                  leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
+                                  variant='outline'
+                                >
+                                  Visualizar
+                                </Button>
+                              </Link>
 
-                              <Button
-                                as="a"
-                                size="sm"
-                                cursor="pointer"
-                                fontSize="sm"
-                                colorScheme="green"
-                                leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
-                                variant='outline'
-                              >
-                                Visualizar
-                              </Button>
-
-                              <Button
-                                as="a"
-                                size="sm"
-                                cursor="pointer"
-                                fontSize="sm"
-                                colorScheme="green"
-                                leftIcon={<Icon as={RiCheckLine} fontSize="20" />}
-                                variant='outline'
-                              >
-                                Resolver
-                              </Button>
                             </Flex>
                           )}
                       </Td>
@@ -146,7 +137,7 @@ export default function userTicketList({ ticketsOfUser }) {
           }
         </>
       </CardBox>
-    </Card>
+    </Layout>
   );
 }
 

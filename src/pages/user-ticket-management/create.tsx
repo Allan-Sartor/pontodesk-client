@@ -96,7 +96,7 @@ export default function CreateCall() {
         isClosable: true
       })
 
-      setTimeout(() => { Router.push('/calls') }, 1000); // delay 1 second
+      setTimeout(() => { Router.push('/user-ticket-management') }, 1000); // delay 1 second
     }
   }
 

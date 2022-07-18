@@ -24,7 +24,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Layout } from '../../components/Layout';
-import CardBox from '../../components/CardBox';
+import { CardBox } from '../../components/CardBox';
 import { Title } from '../../components/Title';
 import { getAPIClient } from '../../services/axios';
 import { useRouter } from 'next/router';

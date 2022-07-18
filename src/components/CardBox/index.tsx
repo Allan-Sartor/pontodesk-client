@@ -8,7 +8,7 @@ type CardBoxProps = {
   buttonRedirect?: string;
   children?: ReactElement;
 }
-export default function CardBox({ title, buttonRedirect, children }: CardBoxProps) {
+export function CardBox({ title, buttonRedirect, children }: CardBoxProps) {
   const bg = useColorModeValue('gray.50', 'gray.800');
 
   return (

@@ -3,7 +3,7 @@ import React from 'react'
 import { RiCheckLine, RiEyeLine, RiPencilLine } from 'react-icons/ri'
 import { useQuery } from 'react-query'
 import { Layout } from '../../components/Layout'
-import CardBox from '../../components/CardBox'
+import { CardBox } from '../../components/CardBox'
 import { Title } from '../../components/Title'
 import { getAPIClient } from '../../services/axios'
 
@@ -100,17 +100,21 @@ export default function ticketList() {
                                   Editar
                                 </Button>
 
-                                <Button
-                                  as="a"
-                                  size="sm"
-                                  cursor="pointer"
-                                  fontSize="sm"
-                                  colorScheme="green"
-                                  leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
-                                  variant='outline'
+                                <Link
+                                  href={`ticket-management/show-ticket-management/${Number(call.id)}`}
                                 >
-                                  Visualizar
-                                </Button>
+                                  <Button
+                                    as="a"
+                                    size="sm"
+                                    cursor="pointer"
+                                    fontSize="sm"
+                                    colorScheme="green"
+                                    leftIcon={<Icon as={RiEyeLine} fontSize="20" />}
+                                    variant='outline'
+                                  >
+                                    Visualizar
+                                  </Button>
+                                </Link >
 
                                 <Button
                                   as="a"
